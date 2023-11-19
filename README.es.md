@@ -38,14 +38,14 @@ docker network create --subnet=10.5.0.0/16 bdNetwork
 
 __Iniciar MSSQL__:
 ```shell
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=Napo1234' --net bdNetwork --ip 10.5.0.2 -p 1433:1433 --name sql_server -d mcr.microsoft.com/mssql/server:latest
+docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=[my_password]' --net bdNetwork --ip 10.5.0.2 -p 1433:1433 --name sql_server -d mcr.microsoft.com/mssql/server:latest
 docker start sql_server
 ```
 * Conectarse a la Base de Datos :
   *	__servername__: localhost,1433
 	* __authentication__: SQL Server Authentication
 	  * __login__: sa
-	  * __password__: [mi_password]]
+	  * __password__: [my_password]
 * Ejecutar "bd/initial_create.sql"
 * Ejecutar "bd/initial_data.sql"
 
