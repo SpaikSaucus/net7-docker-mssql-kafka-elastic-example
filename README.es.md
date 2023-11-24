@@ -192,7 +192,6 @@ El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá
 ## :large_blue_diamond: Unit Test
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-unit-test)
 
-
 ## :large_blue_diamond: Integration Test
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-integration-test)
 
