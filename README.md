@@ -125,7 +125,7 @@ Each call to our Web API will be handled by a middleware that will generate a re
 
 ## :large_blue_diamond: Architecture DDD
 
-The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-arquitectura-ddd)
+The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-architecture-ddd)
 
 ## :large_blue_diamond: Docker
 
