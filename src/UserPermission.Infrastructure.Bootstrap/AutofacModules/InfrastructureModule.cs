@@ -1,7 +1,9 @@
 using Autofac;
+using Microsoft.EntityFrameworkCore;
 using UserPermission.Domain.Core;
 using UserPermission.Domain.Permission.Models;
 using UserPermission.Infrastructure.Core;
+using UserPermission.Infrastructure.EF;
 using UserPermission.Infrastructure.Services;
 
 namespace UserPermission.Infrastructure.Bootstrap.AutofacModules
@@ -14,6 +16,10 @@ namespace UserPermission.Infrastructure.Bootstrap.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<UserPermissionDbContext>()
+             .As<DbContext>()
+             .InstancePerLifetimeScope();
+
             builder.RegisterType<UnitOfWork>()
              .As<IUnitOfWork>()
              .InstancePerLifetimeScope();

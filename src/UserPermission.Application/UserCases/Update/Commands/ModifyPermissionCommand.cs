@@ -19,6 +19,7 @@ namespace UserPermission.Application.UserCases.Update.Commands
 
     public class ModifyPermissionCommandHandler : IRequestHandler<ModifyPermissionCommand, Permission>
     {
+        private const string messageExistsPermission = "Permission already exists and was created {0}";
         private const string messageNotExistsPermission = "Permission {0} not found";
         private readonly IUnitOfWork unitOfWork;
         private readonly ILogger<ModifyPermissionCommandHandler> logger;
@@ -52,6 +53,18 @@ namespace UserPermission.Application.UserCases.Update.Commands
                 permission.EmployeeSurname = cmd.EmployeeSurname;
             if (cmd.PermissionTypeId > 0)
                 permission.PermissionTypeId = cmd.PermissionTypeId;
+
+            var permissionExists = await this.mediator.Send(new PermissionGetQuery()
+                {
+                    EmployeeForename = permission.EmployeeForename,
+                    EmployeeSurname = permission.EmployeeSurname,
+                    PermissionTypeId = permission.PermissionTypeId
+                }, cancellationToken);
+            if (permissionExists != null)
+            {
+                this.logger.LogInformation(messageExistsPermission, permissionExists.PermissionDate);
+                throw new DomainException(string.Format(messageExistsPermission, permissionExists.PermissionDate));
+            }
 
             this.unitOfWork.Repository<Permission>().Update(permission);
             await this.unitOfWork.Complete();

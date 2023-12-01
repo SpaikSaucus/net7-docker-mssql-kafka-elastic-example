@@ -1,17 +1,17 @@
-﻿using UserPermission.Domain.Core;
-using UserPermission.Infrastructure.EF;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using UserPermission.Domain.Core;
 
 namespace UserPermission.Infrastructure.Core
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly UserPermissionDbContext context;
+        private readonly DbContext context;
         private Hashtable repositories;
 
-        public UnitOfWork(UserPermissionDbContext context)
+        public UnitOfWork(DbContext context)
         {
             this.context = context;
         }
@@ -23,8 +23,7 @@ namespace UserPermission.Infrastructure.Core
 
         public IRepository<TEntity> Repository<TEntity>() where TEntity : class
         {
-            if (this.repositories == null)
-                this.repositories = new Hashtable();
+            this.repositories ??= new Hashtable();
 
             var type = typeof(TEntity).Name;
 
