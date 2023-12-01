@@ -4,13 +4,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using UserPermission.Application.UserCases.FindOne.Queries;
 using UserPermission.Application.UserCases.Update.Commands;
 using UserPermission.Domain.Core;
 using UserPermission.Domain.Exceptions;
 using UserPermission.Domain.Permission.Models;
 using Xunit;
 
-namespace UserPermission.UnitTests.UserCases
+namespace UnitTests.UserCases
 {
 	public class UpdateTests
 	{
@@ -46,7 +47,9 @@ namespace UserPermission.UnitTests.UserCases
 		public async Task UpdateCommand_PermissionExists_ReturnPermissionOk()
 		{
 			//Arrange
+			var forenameNew = "forenameNew";
 			var cmd = CreateCommand();
+			cmd.EmployeeForename = forenameNew;
 			var permission = CreatePermission();
 			var stubUnitOfWork = A.Fake<IUnitOfWork>();
 			var stubRepository = A.Fake<IRepository<Permission>>();
@@ -54,7 +57,8 @@ namespace UserPermission.UnitTests.UserCases
 			var stubMediator = A.Fake<IMediator>();
 			var stubEls = A.Fake<IElasticsearchCRUD<Permission>>();
 
-			A.CallTo(() => stubMediator.Send(A<IRequest<Permission>>._, default)).Returns(permission);
+			A.CallTo(() => stubMediator.Send(A<PermissionGetQuery>.That.Matches(x => x.Id == 1), default)).Returns(permission);
+			A.CallTo(() => stubMediator.Send(A<PermissionGetQuery>.That.Matches(x => x.EmployeeForename == forenameNew), default)).Returns(Task.FromResult<Permission>(null));
 			A.CallTo(() => stubUnitOfWork.Repository<Permission>()).Returns(stubRepository);
 
 			var handler = new ModifyPermissionCommandHandler(stubUnitOfWork, stubLogger, stubMediator, stubEls);

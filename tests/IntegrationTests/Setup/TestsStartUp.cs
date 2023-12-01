@@ -2,23 +2,25 @@ using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Text.Json;
-using UserPermission.API;
+using UserPermission.Application.Behaviors;
 using UserPermission.Domain.Core;
+using UserPermission.Infrastructure.Bootstrap.AutofacModules;
 using UserPermission.Infrastructure.Bootstrap.Extensions.ApplicationBuilder;
 using UserPermission.Infrastructure.Bootstrap.Extensions.ServiceCollection;
 using UserPermission.Infrastructure.Core;
 
-namespace UserPermission.IntegrationTests.Setup
+namespace IntegrationTests.Setup
 {
-	public class TestsStartUp
+	public class TestsStartup
     {
 		private readonly IConfiguration configuration;
 		private readonly IWebHostEnvironment env;
 
-		public TestsStartUp(IConfiguration configuration, IWebHostEnvironment env)
+		public TestsStartup(IConfiguration configuration, IWebHostEnvironment env)
 		{
 			this.configuration = configuration;
 			this.env = env;
@@ -32,7 +34,12 @@ namespace UserPermission.IntegrationTests.Setup
 			services.AddResponseCompressionExtension();
 			services.AddHttpContextAccessor();
 
-			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Application.Behaviors.ValidatorBehavior<,>).Assembly));
+			services.AddDbContext<UserPermissionMockDbContext>(opt =>
+			{
+				opt.UseInMemoryDatabase(databaseName: "InMemoryDatabase");
+			});
+
+			services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(ValidatorBehavior<,>).Assembly));
 			services.AddControllers(o =>
 			{
 				o.Filters.Add(new ProducesResponseTypeAttribute(400));
@@ -43,6 +50,7 @@ namespace UserPermission.IntegrationTests.Setup
 			});
 
 			services.AddTransient<IUnitOfWork, UnitOfWork>();
+			services.AddElasticsearchMockExtension();
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,7 +75,8 @@ namespace UserPermission.IntegrationTests.Setup
 
 		public void ConfigureContainer(ContainerBuilder builder)
 		{
-			builder.AddAutofacExtension(this.configuration);
+			builder.RegisterModule(new InfrastructureMockModule());
+			builder.RegisterModule(new MediatorModule(configuration.GetValue("AppSettings:CommandLoggingEnabled", false)));
 		}
 	}
 }

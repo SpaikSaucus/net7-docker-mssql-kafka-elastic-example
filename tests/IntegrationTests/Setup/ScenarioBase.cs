@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 using System.Reflection;
-using UserPermission.IntegrationTests.Setup;
 
 namespace IntegrationTests.Setup
 {
@@ -15,15 +14,21 @@ namespace IntegrationTests.Setup
 		{
 			var path = Assembly.GetAssembly(typeof(ScenarioBase)).Location;
 			var host = Host.CreateDefaultBuilder()
-			 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-			 .ConfigureWebHostDefaults(webHostBuilder =>
-			 {
-				 webHostBuilder
-					 .UseTestServer()
-					 .UseContentRoot(Path.GetDirectoryName(path))
-					 .UseStartup<TestsStartUp>();
-			 })
-			 .Build();
+				.ConfigureAppConfiguration((hostingContext, config) =>
+				{
+					config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+						.AddJsonFile($"appsettings.Local.json", optional: true, reloadOnChange: true);
+					config.AddEnvironmentVariables();
+				})
+				.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+				.ConfigureWebHostDefaults(webHostBuilder =>
+				{
+					webHostBuilder
+						.UseTestServer()
+						.UseContentRoot(Path.GetDirectoryName(path))
+						.UseStartup<TestsStartup>();
+				})
+				.Build();
 
 			host.Start();
 			return host.GetTestServer();
@@ -35,6 +40,11 @@ namespace IntegrationTests.Setup
 		}
 
 		public static class Post
+		{
+			public const string Permissions = "api/permissions";
+		}
+
+		public static class Patch
 		{
 			public const string Permissions = "api/permissions";
 		}

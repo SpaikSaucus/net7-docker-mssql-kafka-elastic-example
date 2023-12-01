@@ -1,18 +1,18 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using FakeItEasy;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using UserPermission.Application.Behaviors;
 using Xunit;
 
-namespace UserPermission.UnitTests
+namespace UnitTests
 {
-    public class MediatRPipelineTests
+	public class MediatRPipelineTests
     {
         [Fact]
         public async Task ValidationPipelineBehaviorShouldDelegateInFluentAssertionsFramework()

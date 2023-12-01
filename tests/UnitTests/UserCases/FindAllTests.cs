@@ -10,7 +10,7 @@ using UserPermission.Domain.Core;
 using UserPermission.Domain.Permission.Models;
 using Xunit;
 
-namespace UserPermission.UnitTests.UserCases
+namespace UnitTests.UserCases
 {
 	public class FindAllTests
     {
