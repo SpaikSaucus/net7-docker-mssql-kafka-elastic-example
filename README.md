@@ -101,7 +101,7 @@ __Access to elasticsearch:__ (_After running the post and creating the 1st docum
 To understand the folder structure, you can go to the following link in which I explain the structure within the readme of another project. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#folder-structure)
 
 ## How do the components interact?
-![net-docker-kafka-mssql-elastic](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/net-docker-kafka-mssql-elastic.png?raw=true)
+<image style="width: 90%;" src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/net-docker-kafka-mssql-elastic.png?raw=true"> </image> 
 
 Each call to our Web API will be handled by a middleware that will generate a request to Kafka.
 * The query operations will first be referred to Elasticsearch and if no information is obtained, they will be referred to the database.
@@ -129,10 +129,52 @@ The following link will take us to the readme of another of my projects, where y
 
 ## :large_blue_diamond: Docker
 
-In progress....
+Docker is an open source project that automates the deployment of applications within software containers, providing an additional layer of abstraction and automation of application virtualization across multiple operating systems.
+
+Built on the facilities provided by the Linux kernel (mainly cgroups and namespaces), a Docker container, unlike a virtual machine, does not require including a separate operating system. Instead, it relies on kernel capabilities and uses resource isolation (CPU, memory, I/O, network, etc.) and separate namespaces to isolate an application's view from the operating system. Therefore, containers have significantly less footprint than virtual machine (VM) images.
+
+Multiple containers share the same core, but each container can be restricted to using only a defined amount of resources such as CPU, memory, and I/O.
+
+Using Docker to create and manage containers can simplify the creation of highly distributed systems. This allows nodes to be deployed as resources become available or as more nodes are needed, enabling a Platform as a Service (PaaS) style deployment.
+
+> [!NOTE]
+> Docker is also a company that promotes and drives this technology, in collaboration with cloud, Linux and Windows providers, including Microsoft.
+
+
+### Comparing Docker containers with virtual machines
+
+<table>
+  <th>Virtual Machines</th>
+  <th>Docker Containers</th>
+  <tr>
+    <td> 
+      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true"> </image>
+    </td>
+    <td>
+      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true"> </image> 
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" style="vertical-align: top;">
+    Virtual machines include the application, the required libraries or binaries, and a full guest operating system. Full virtualization requires more resources than containerization.
+    </td>
+    <td width="50%" style="vertical-align: top;">
+    Containers include the application and all its dependencies. However, they share the OS kernel with other containers, running as isolated processes in user space on the host operating system. (Except in Hyper-V containers, where each container runs inside of a special virtual machine per container.)
+    </td>
+  </tr>
+</table>
+
+### Analogy
+In the same way that freight containers allow them to be transported by ship, train or truck regardless of the cargo inside, software containers act as a standard software deployment unit that can contain different dependencies and code. In this way, the inclusion of containerized software allows developers and IT professionals to deploy it in environments __with little or no modifications at all__.
+
+### Summary
+Containers offer the benefits of isolation, portability, agility, scalability, and control throughout the entire application lifecycle workflow. The most important advantage is the environment isolation provided between development and operations.
 
 ### References: :triangular_flag_on_post:
+* [Learn Microsoft - Container Docker Introduction](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/container-docker-introduction/)
 * [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
+* [Docker wiki](https://en.wikipedia.org/wiki/Docker_(software))
+
 
 ## :large_blue_diamond: Elasticsearch
 
@@ -166,7 +208,7 @@ If we want to view the configuration, we must enter the following classes:
     * ServiceCollections :arrow_right: SwaggerServiceCollectionExtensions
 
 ### References: :triangular_flag_on_post:
-  * [Learn Microsoft Swashbuckle](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
+  * [Learn Microsoft - Swashbuckle](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
   * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
   
 ## :large_blue_diamond: MediatR + CQRS
@@ -195,7 +237,7 @@ The following link will take us to the readme of another of my projects, where y
 The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-integration-test)
 
 ## Read Recommended:
-  * [Learn Microsoft DDD with CQRS](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+  * [Learn Microsoft - DDD with CQRS](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## License
 Is licensed under [The MIT License](LICENSE).

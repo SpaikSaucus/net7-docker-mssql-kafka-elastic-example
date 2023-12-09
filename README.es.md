@@ -102,7 +102,7 @@ Para entender la estructura de carpetas, podes ir al siguiente link en el que ex
 
 ## Como interaccionan los componentes
 
-![net-docker-kafka-mssql-elastic](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/net-docker-kafka-mssql-elastic.png?raw=true)
+<image style="width: 90%;" src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/net-docker-kafka-mssql-elastic.png?raw=true"> </image> 
 
 Cada llamada a nuestra Web API, será manejada por un middleware que generara un request a Kafka. 
 * Las operaciones de consulta, serán primeramente derivadas a Elasticsearch y en caso de no obtener información, serán derivadas a la base de datos. 
@@ -131,10 +131,50 @@ El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá
 
 ## :large_blue_diamond: Docker
 
-En progreso....
+Docker es un proyecto de código abierto que automatiza el despliegue de aplicaciones dentro de contenedores de software, proporcionando una capa adicional de abstracción y automatización de virtualización de aplicaciones en múltiples sistemas operativos.
+
+Construido sobre las facilidades proporcionadas por el kernel Linux (principalmente cgroups y namespaces), un contenedor Docker, a diferencia de una máquina virtual, no requiere incluir un sistema operativo independiente. En su lugar, se basa en las funcionalidades del kernel y utiliza el aislamiento de recursos (CPU, la memoria, E/S, red, etc.) y namespaces separados para aislar la vista de una aplicación del sistema operativo. Por lo tanto, los contenedores tienen una superficie significativamente menor que las imágenes de máquina virtual (VM).
+
+Contenedores múltiples comparten el mismo núcleo, pero cada contenedor puede ser restringido a utilizar solo una cantidad definida de recursos como CPU, memoria y E/S.
+
+Usar Docker para crear y gestionar contenedores puede simplificar la creación de sistemas altamente distribuidos. Esto permite que el despliegue de nodos se realice a medida que se dispone de recursos o cuando se necesiten más nodos, lo que permite una plataforma como servicio (PaaS - Platform as a Service) de estilo de despliegue.
+
+> [!NOTE]
+> Docker es también una empresa que promueve e impulsa esta tecnología, en colaboración con proveedores de la nube, Linux y Windows, incluido Microsoft.
+
+### Comparando Contenedores de Docker con Virtual Machines
+
+<table>
+  <th>Virtual Machines</th>
+  <th>Contenedores de Docker</th>
+  <tr>
+    <td> 
+      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true"> </image>
+    </td>
+    <td>
+      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true"> </image> 
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" style="vertical-align: top;">
+    Las máquinas virtuales incluyen la aplicación, las bibliotecas o los archivos binarios necesarios y un sistema operativo invitado completo. La virtualización completa requiere más recursos que la inclusión en contenedores.
+    </td>
+    <td width="50%" style="vertical-align: top;">
+    Los contenedores incluyen la aplicación y todas sus dependencias. Sin embargo, comparten el kernel del sistema operativo con otros contenedores, que se ejecutan como procesos aislados en el espacio de usuario en el sistema operativo host. (Excepto en los contenedores de Hyper-V, en que cada contenedor se ejecuta dentro de una máquina virtual especial por contenedor).
+    </td>
+  </tr>
+</table>
+
+### Analogía
+Del mismo modo que los contenedores de mercancías permiten su transporte por barco, tren o camión independientemente de la carga de su interior, los contenedores de software actúan como una unidad estándar de implementación de software que puede contener diferentes dependencias y código. De esta manera, la inclusión del software en contenedor permite a los desarrolladores y los profesionales de TI implementarlo en entornos __con pocas modificaciones o ninguna en absoluto__.
+
+### Resumen
+Los contenedores ofrecen las ventajas del aislamiento, la portabilidad, la agilidad, la escalabilidad y el control a lo largo de todo el flujo de trabajo del ciclo de vida de la aplicación. La ventaja más importante es el aislamiento del entorno que se proporciona entre el desarrollo y las operaciones.
 
 ### Referencias: :triangular_flag_on_post:
+* [Aprendiendo Microsoft - Container Docker Introducción](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/container-docker-introduction/)
 * [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
+* [Docker wiki](https://es.wikipedia.org/wiki/Docker_(software))
 
 ## :large_blue_diamond: Elasticsearch
 
@@ -167,7 +207,7 @@ Si queremos visualizar la configuración, debemos ingresar a la siguientes clase
     * ServiceCollections :arrow_right: SwaggerServiceCollectionExtensions
 
 ### Referencias: :triangular_flag_on_post:
-  * [Aprendiendo Microsoft Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
+  * [Aprendiendo Microsoft - Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
   * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
   
 ## :large_blue_diamond: MediatR + CQRS
@@ -196,7 +236,7 @@ El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-integration-test)
 
 ## Lectura recomendada:
-  * [Aprendiendo Microsoft DDD con CRQS](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+  * [Aprendiendo Microsoft - DDD con CRQS](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## Licencia
 
