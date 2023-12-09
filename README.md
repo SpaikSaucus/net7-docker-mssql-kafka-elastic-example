@@ -155,10 +155,10 @@ Using Docker to create and manage containers can simplify the creation of highly
     </td>
   </tr>
   <tr>
-    <td width="50%" style="vertical-align: top;">
+    <td width="50%" style="vertical-align: top !important;">
     Virtual machines include the application, the required libraries or binaries, and a full guest operating system. Full virtualization requires more resources than containerization.
     </td>
-    <td width="50%" style="vertical-align: top;">
+    <td width="50%" style="vertical-align: top !important;">
     Containers include the application and all its dependencies. However, they share the OS kernel with other containers, running as isolated processes in user space on the host operating system. (Except in Hyper-V containers, where each container runs inside of a special virtual machine per container.)
     </td>
   </tr>
@@ -170,27 +170,27 @@ In the same way that freight containers allow them to be transported by ship, tr
 ### Summary
 Containers offer the benefits of isolation, portability, agility, scalability, and control throughout the entire application lifecycle workflow. The most important advantage is the environment isolation provided between development and operations.
 
-### References: :triangular_flag_on_post:
-* [Learn Microsoft - Container Docker Introduction](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/container-docker-introduction/)
-* [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
-* [Docker wiki](https://en.wikipedia.org/wiki/Docker_(software))
+### References :triangular_flag_on_post:
+> * [Learn Microsoft - Container Docker Introduction](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/container-docker-introduction/)
+> * [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
+> * [Docker wiki](https://en.wikipedia.org/wiki/Docker_(software))
 
 
 ## :large_blue_diamond: Elasticsearch
 
 In progress....
 
-### References: :triangular_flag_on_post:
-* [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
-* [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
-* [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
+### References :triangular_flag_on_post:
+> * [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+> * [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
+> * [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
 
 ## :large_blue_diamond: Kafka
 
 In progress....
 
-### References: :triangular_flag_on_post:
-* [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
+### References :triangular_flag_on_post:
+> * [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
 
 
 ## :large_blue_diamond: Swagger Oas3
@@ -207,13 +207,12 @@ If we want to view the configuration, we must enter the following classes:
     and in:
     * ServiceCollections :arrow_right: SwaggerServiceCollectionExtensions
 
-### References: :triangular_flag_on_post:
-  * [Learn Microsoft - Swashbuckle](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
-  * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
+### References :triangular_flag_on_post:
+> * [Learn Microsoft - Swashbuckle](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
+> * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
   
 ## :large_blue_diamond: MediatR + CQRS
 The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-mediatr--cqrs)
-
 
 ## :large_blue_diamond: Health Check
 The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-health-check)
@@ -237,7 +236,7 @@ The following link will take us to the readme of another of my projects, where y
 The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-integration-test)
 
 ## Read Recommended:
-  * [Learn Microsoft - DDD with CQRS](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+> * [Learn Microsoft - DDD with CQRS](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## License
 Is licensed under [The MIT License](LICENSE).

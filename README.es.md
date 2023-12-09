@@ -156,10 +156,10 @@ Usar Docker para crear y gestionar contenedores puede simplificar la creación d
     </td>
   </tr>
   <tr>
-    <td width="50%" style="vertical-align: top;">
+    <td width="50%" style="vertical-align: top !important;">
     Las máquinas virtuales incluyen la aplicación, las bibliotecas o los archivos binarios necesarios y un sistema operativo invitado completo. La virtualización completa requiere más recursos que la inclusión en contenedores.
     </td>
-    <td width="50%" style="vertical-align: top;">
+    <td width="50%" style="vertical-align: top !important;">
     Los contenedores incluyen la aplicación y todas sus dependencias. Sin embargo, comparten el kernel del sistema operativo con otros contenedores, que se ejecutan como procesos aislados en el espacio de usuario en el sistema operativo host. (Excepto en los contenedores de Hyper-V, en que cada contenedor se ejecuta dentro de una máquina virtual especial por contenedor).
     </td>
   </tr>
@@ -171,26 +171,26 @@ Del mismo modo que los contenedores de mercancías permiten su transporte por ba
 ### Resumen
 Los contenedores ofrecen las ventajas del aislamiento, la portabilidad, la agilidad, la escalabilidad y el control a lo largo de todo el flujo de trabajo del ciclo de vida de la aplicación. La ventaja más importante es el aislamiento del entorno que se proporciona entre el desarrollo y las operaciones.
 
-### Referencias: :triangular_flag_on_post:
-* [Aprendiendo Microsoft - Container Docker Introducción](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/container-docker-introduction/)
-* [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
-* [Docker wiki](https://es.wikipedia.org/wiki/Docker_(software))
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft - Container Docker Introducción](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/container-docker-introduction/)
+> * [Assign static ip container](https://www.baeldung.com/ops/docker-assign-static-ip-container)
+> * [Docker wiki](https://es.wikipedia.org/wiki/Docker_(software))
 
 ## :large_blue_diamond: Elasticsearch
 
 En progreso....
 
-### Referencias: :triangular_flag_on_post:
-* [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
-* [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
-* [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
+### Referencias :triangular_flag_on_post:
+> * [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
+> * [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
+> * [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
 
 ## :large_blue_diamond: Kafka
 
 En progreso....
 
-### Referencias: :triangular_flag_on_post:
-* [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
+### Referencias :triangular_flag_on_post:
+> * [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
 
 ## :large_blue_diamond: Swagger Oas3
 
@@ -206,13 +206,12 @@ Si queremos visualizar la configuración, debemos ingresar a la siguientes clase
     y en:
     * ServiceCollections :arrow_right: SwaggerServiceCollectionExtensions
 
-### Referencias: :triangular_flag_on_post:
-  * [Aprendiendo Microsoft - Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
-  * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft - Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
+> * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
   
 ## :large_blue_diamond: MediatR + CQRS
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-mediatr--cqrs)
-
 
 ## :large_blue_diamond: Health Check
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-health-check)
@@ -236,7 +235,7 @@ El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-integration-test)
 
 ## Lectura recomendada:
-  * [Aprendiendo Microsoft - DDD con CRQS](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+> * [Aprendiendo Microsoft - DDD con CRQS](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## Licencia
 
