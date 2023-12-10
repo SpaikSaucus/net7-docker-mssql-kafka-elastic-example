@@ -140,29 +140,12 @@ Using Docker to create and manage containers can simplify the creation of highly
 > [!NOTE]
 > Docker is also a company that promotes and drives this technology, in collaboration with cloud, Linux and Windows providers, including Microsoft.
 
-
 ### Comparing Docker containers with virtual machines
 
-<table>
-  <th>Virtual Machines</th>
-  <th>Docker Containers</th>
-  <tr>
-    <td> 
-      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true"> </image>
-    </td>
-    <td>
-      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true"> </image> 
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" style="vertical-align: top !important;">
-    Virtual machines include the application, the required libraries or binaries, and a full guest operating system. Full virtualization requires more resources than containerization.
-    </td>
-    <td width="50%" style="vertical-align: top !important;">
-    Containers include the application and all its dependencies. However, they share the OS kernel with other containers, running as isolated processes in user space on the host operating system. (Except in Hyper-V containers, where each container runs inside of a special virtual machine per container.)
-    </td>
-  </tr>
-</table>
+| Virtual Machines | Docker Containers |
+| :-------------: | :-------------: |
+| ![vm](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true) | ![dc](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true) |
+| Virtual machines include the application, the required libraries or binaries, and a full guest operating system. Full virtualization requires more resources than containerization. | Containers include the application and all its dependencies. However, they share the OS kernel with other containers, running as isolated processes in user space on the host operating system. (Except in Hyper-V containers, where each container runs inside of a special virtual machine per container.) |
 
 ### Analogy
 In the same way that freight containers allow them to be transported by ship, train or truck regardless of the cargo inside, software containers act as a standard software deployment unit that can contain different dependencies and code. In this way, the inclusion of containerized software allows developers and IT professionals to deploy it in environments __with little or no modifications at all__.

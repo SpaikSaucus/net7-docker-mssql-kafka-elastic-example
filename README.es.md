@@ -144,26 +144,10 @@ Usar Docker para crear y gestionar contenedores puede simplificar la creación d
 
 ### Comparando Contenedores de Docker con Virtual Machines
 
-<table>
-  <th>Virtual Machines</th>
-  <th>Contenedores de Docker</th>
-  <tr>
-    <td> 
-      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true"> </image>
-    </td>
-    <td>
-      <image src="https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true"> </image> 
-    </td>
-  </tr>
-  <tr>
-    <td width="50%" style="vertical-align: top !important;">
-    Las máquinas virtuales incluyen la aplicación, las bibliotecas o los archivos binarios necesarios y un sistema operativo invitado completo. La virtualización completa requiere más recursos que la inclusión en contenedores.
-    </td>
-    <td width="50%" style="vertical-align: top !important;">
-    Los contenedores incluyen la aplicación y todas sus dependencias. Sin embargo, comparten el kernel del sistema operativo con otros contenedores, que se ejecutan como procesos aislados en el espacio de usuario en el sistema operativo host. (Excepto en los contenedores de Hyper-V, en que cada contenedor se ejecuta dentro de una máquina virtual especial por contenedor).
-    </td>
-  </tr>
-</table>
+| Virtual Machines | Contenedores de Docker |
+| :-------------: | :-------------: |
+| ![vm](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/virtual-machine-hardware-software.png?raw=true) | ![dc](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/img/docker-container-hardware-software.png?raw=true) |
+| Las máquinas virtuales incluyen la aplicación, las bibliotecas o los archivos binarios necesarios y un sistema operativo invitado completo. La virtualización completa requiere más recursos que la inclusión en contenedores. | Los contenedores incluyen la aplicación y todas sus dependencias. Sin embargo, comparten el kernel del sistema operativo con otros contenedores, que se ejecutan como procesos aislados en el espacio de usuario en el sistema operativo host. (Excepto en los contenedores de Hyper-V, en que cada contenedor se ejecuta dentro de una máquina virtual especial por contenedor). |
 
 ### Analogía
 Del mismo modo que los contenedores de mercancías permiten su transporte por barco, tren o camión independientemente de la carga de su interior, los contenedores de software actúan como una unidad estándar de implementación de software que puede contener diferentes dependencias y código. De esta manera, la inclusión del software en contenedor permite a los desarrolladores y los profesionales de TI implementarlo en entornos __con pocas modificaciones o ninguna en absoluto__.
