@@ -178,19 +178,56 @@ Containers offer the benefits of isolation, portability, agility, scalability, a
 
 ## :large_blue_diamond: Elasticsearch
 
-In progress....
+Elasticsearch is a search engine based on the Apache Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents.
+
+### Some Use Cases
+* __Log Monitoring__: Fast and scalable logging that won't quit.
+* __Infrastructure Monitoring__: Monitor and visualize your system metrics.
+* __APM__: Get insight into your application performance.
+* __Synthetic Monitoring__: Monitor and react to availability issues.
+* __Enterprise Search__: Search and discovery experiences for any use case.
+* __Maps__: Explore location data in real time.
+* __SIEM__: Interactive investigation and automated threat detection.
+* __Endpoint Security__: Prevent, detect, hunt for, and respond to threats.
 
 ### References :triangular_flag_on_post:
+> * [Elasticsearch wiki](https://en.wikipedia.org/wiki/Elasticsearch)
 > * [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 > * [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
 > * [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
 
 ## :large_blue_diamond: Kafka
 
-In progress....
+Apache Kafka is an open-source distributed event streaming platform used for high-performance data pipelines, streaming analytics, data integration, and mission-critical applications.
+
+### Core Capabilities
+* __High throughput__: Deliver messages at network limited throughput using a cluster of machines with latencies as low as 2ms.
+* __Scalable__: Scale production clusters up to a thousand brokers, trillions of messages per day, petabytes of data, hundreds of thousands of partitions. Elastically expand and contract storage and processing.
+* __Permanent storage__: Store streams of data safely in a distributed, durable, fault-tolerant cluster.
+* __High availability__: Stretch clusters efficiently over availability zones or connect separate clusters across geographic regions.
+
+### Some Use Cases
+Event streaming is applied to a wide variety of use cases across a plethora of industries and organizations. Its many examples include:
+
+* To process payments and financial transactions in real-time, such as in stock exchanges, banks, and insurances.
+* To track and monitor cars, trucks, fleets, and shipments in real-time, such as in logistics and the automotive industry.
+* To continuously capture and analyze sensor data from IoT devices or other equipment, such as in factories and wind parks.
+* To collect and immediately react to customer interactions and orders, such as in retail, the hotel and travel industry, and mobile applications.
+* To monitor patients in hospital care and predict changes in condition to ensure timely treatment in emergencies.
+* To connect, store, and make available data produced by different divisions of a company.
+* To serve as the foundation for data platforms, event-driven architectures, and microservices.
+
+<image style="width: 90%;" src="https://github.com/SpaikSaucus/cheatsheets/blob/main/Queues/Kafka/Kafka_Top_5_use_cases.gif?raw=true"> </image> 
+
+
+### How do it work?
+It operates through a publish-subscribe model where producers generate messages and send them to a topic, and consumers subscribe to those topics to process messages in real time. Kafka provides high availability, scalability, and fault tolerance, making it ideal for use cases such as log processing, real-time analytics, and building microservices architectures.
 
 ### References :triangular_flag_on_post:
+> * [Official web](https://kafka.apache.org/)
+> * [Introduction](https://kafka.apache.org/documentation/#gettingStarted)
 > * [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
+> * [Cheatsheet - Kafka](https://github.com/SpaikSaucus/cheatsheets/tree/main/Queues/Kafka)
 
 
 ## :large_blue_diamond: Swagger Oas3
@@ -236,6 +273,7 @@ The following link will take us to the readme of another of my projects, where y
 The following link will take us to the readme of another of my projects, where you can find the information associated with this point. Click [here](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.md#large_blue_diamond-integration-test)
 
 ## Read Recommended:
+> * [Kafka Introduction](https://kafka.apache.org/documentation/#gettingStarted)
 > * [Learn Microsoft - DDD with CQRS](https://learn.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## License

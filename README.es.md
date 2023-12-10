@@ -178,19 +178,56 @@ Los contenedores ofrecen las ventajas del aislamiento, la portabilidad, la agili
 
 ## :large_blue_diamond: Elasticsearch
 
-En progreso....
+Elasticsearch es un servidor de búsqueda basado en Apache Lucene. Provee un motor de búsqueda de texto completo, distribuido y con capacidad de multitenencia con una interfaz web RESTful y con documentos JSON.
+
+### Algunos Casos de Uso
+* __Monitoreo de logs__: Logging rápido y escalable que no se detendrá.
+* __Monitoreo de infraestructura__: Controla y visualiza las métricas de tu sistema.
+* __APM__: Obtén información sobre el rendimiento de tu aplicación.
+* __Monitoreo sintético__: Monitorea y reacciona a problemas de disponibilidad.
+* __Enterprise Search__: Experiencias de búsqueda y descubrimiento para cualquier caso de uso.
+* __Maps__: Explora datos de ubicación en tiempo real.
+* __SIEM__: Investigación interactiva y detección automatizada de amenazas.
+* __Seguridad de endpoint__: Prevé, detecta, busca y responde a amenazas.
 
 ### Referencias :triangular_flag_on_post:
+> * [Elasticsearch wiki](https://es.wikipedia.org/wiki/Elasticsearch)
 > * [Elasticsearch in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)
 > * [Elasticsearch client Net](https://www.elastic.co/guide/en/elasticsearch/client/net-api/7.17/configuration-options.html)
 > * [Elasticsearch ejemplo integración Net](https://www.c-sharpcorner.com/article/how-to-integrate-elasticsearch-in-asp-net-core/)
 
 ## :large_blue_diamond: Kafka
 
-En progreso....
+Apache Kafka es una plataforma de transmisión de eventos distribuida de código abierto utilizada para canalizaciones de datos de alto rendimiento, análisis de transmisión, integración de datos y aplicaciones de misión crítica.
+
+### Características Básicas
+* __Alto rendimiento__: Entregue mensajes con un rendimiento limitado de la red utilizando un grupo de máquinas con latencias tan bajas como 2 ms.
+* __Escalable__: Escale los clústeres de producción hasta mil intermediarios, billones de mensajes por día, petabytes de datos, cientos de miles de particiones. Ampliar y contraer elásticamente el almacenamiento y procesamiento.
+* __Almacenamiento permanente__: Almacene flujos de datos de forma segura en un clúster distribuido, duradero y tolerante a fallos.
+* __Alta disponibilidad__: Extienda los clústeres de manera eficiente en zonas de disponibilidad o conecte clústeres separados entre regiones geográficas.
+
+### Algunos Casos de Uso
+La transmisión de eventos se aplica a una amplia variedad de casos de uso en una gran cantidad de industrias y organizaciones. Sus muchos ejemplos incluyen:
+
+* Para procesar pagos y transacciones financieras en tiempo real, como en bolsas de valores, bancos y seguros.
+* Para rastrear y monitorear automóviles, camiones, flotas y envíos en tiempo real, como en la logística y la industria automotriz.
+* Capturar y analizar continuamente datos de sensores de dispositivos IoT u otros equipos, como en fábricas y parques eólicos.
+* Recopilar y reaccionar inmediatamente a las interacciones y pedidos de los clientes, como en el comercio minorista, la industria hotelera y de viajes, y las aplicaciones móviles.
+* Monitorear a los pacientes en atención hospitalaria y predecir cambios en su condición para asegurar el tratamiento oportuno en emergencias.
+* Conectar, almacenar y poner a disposición datos producidos por diferentes divisiones de una empresa.
+* Servir como base para plataformas de datos, arquitecturas basadas en eventos y microservicios.
+
+<image style="width: 90%;" src="https://github.com/SpaikSaucus/cheatsheets/blob/main/Queues/Kafka/Kafka_Top_5_use_cases.gif?raw=true"> </image> 
+
+### Cómo funciona?
+
+Funciona mediante la publicación y suscripción de mensajes a través de temas (topics). Los productores generan mensajes y los envían a un topic, mientras que los consumidores se suscriben a esos topics para procesar los mensajes en tiempo real.
 
 ### Referencias :triangular_flag_on_post:
+> * [Web oficial](https://kafka.apache.org/)
+> * [Introducción](https://kafka.apache.org/documentation/#gettingStarted)
 > * [Kafka tool net](https://github.com/confluentinc/confluent-kafka-dotnet/)
+> * [Cheatsheet - Kafka](https://github.com/SpaikSaucus/cheatsheets/tree/main/Queues/Kafka)
 
 ## :large_blue_diamond: Swagger Oas3
 
@@ -235,6 +272,7 @@ El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá
 El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-integration-test)
 
 ## Lectura recomendada:
+> * [Kafka Introducción](https://kafka.apache.org/documentation/#gettingStarted)
 > * [Aprendiendo Microsoft - DDD con CRQS](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
 
 ## Licencia
