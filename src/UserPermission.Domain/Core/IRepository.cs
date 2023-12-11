@@ -6,8 +6,7 @@ namespace UserPermission.Domain.Core
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        TEntity FindById(uint id);
-        TEntity FindById(int id);
+        TEntity FindById(object id);
         IEnumerable<TEntity> Find(ISpecification<TEntity> specification = null);
         void Add(TEntity entity);
         void AddRange(IEnumerable<TEntity> entities);

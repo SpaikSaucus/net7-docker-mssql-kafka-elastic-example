@@ -45,12 +45,7 @@ namespace UserPermission.Infrastructure.Core
             return this.ApplySpecification(specification);
         }
 
-        public TEntity FindById(int id)
-        {
-            return this._context.Set<TEntity>().Find(id);
-        }
-
-        public TEntity FindById(uint id)
+        public TEntity FindById(object id)
         {
             return this._context.Set<TEntity>().Find(id);
         }
