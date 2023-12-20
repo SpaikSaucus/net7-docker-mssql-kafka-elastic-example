@@ -98,7 +98,53 @@ __Acceder a elasticsearch:__ (_Luego de ejecutar el post y crear el 1er document
 * A disfrutar!
 
 ## Estructura de carpetas
-Para entender la estructura de carpetas, podes ir al siguiente link en el que explico la estructura dentro del readme de otro proyecto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#estructura-de-carpetas)
+
+En este apartado explicaremos la estructura del proyecto, como están diseñadas las capas, que función cumple cada una. También haremos mención sobre algunas carpetas importantes.
+
+### 1- ENTRYPOINT
+Web Api, Listeners de queues, workers de un job, etc. No debe implementar reglas de negocio. 
+
+  * #### API
+    Recibe los request y se los delega a [MediatR](https://github.com/jbogard/MediatR). Se implementa el uso de Mediatr para el desacople entre capas y asi implementar una arquitectura CQRS entre lo transaccional y consultivo. 
+
+    * __Controllers__: contendrá las distintas versiones de los controladores. Para mas información sobre API Version ir [aquí](#api-versions).
+    * __ViewModels__: contendrá las clases Request y Response, necesarias para la interacción.
+
+### 2- CORE
+Principal objetivo, implementar lógica de negocio y casos de uso. Debemos velar para que no existan referencias a Frameworks asociados a Infraestructura (ejemplo: frameworks de accesos a datos).
+
+  * #### APPLICATION
+    Implementaremos el flujo para desarrollar una funcionalidad especifica de mi aplicación. Orquestara entre los diferentes Dominios.
+
+    * __Behaviors__: contendrá comportamiento reutilizable por MediatR en cada interacción de la API con la capa de APPLICATION. 
+    Ejemplos:
+      * ___LoggingBehavior___: Se logueara cada request y response que procese MediatR. 
+      * ___ValidatorBehavior___: Ejecuta los Validators que estén asociados a un MediatR.
+
+    * __UserCases__: contendrá los Casos de Uso que se definan para cumplir con los requerimientos solicitados. Un UserCase puede hacer uso de otro UserCase, para reutilizar código (ejemplo: revisar el UserCase de CreatePermissionCommand).
+      * ___Commands___: contendrá las implementaciones transaccionales.
+      * ___Queries___: contendrá las implementaciones consultivas.
+      * ___Validations___: contendrá la lógica de validación a los datos de entrada.
+      * ___DTOs___: contendrá las clases DTO necesarias para transferir información entre capas, cuando sea necesario.
+
+  * #### DOMAIN
+    Definiremos las reglas de negocio (en términos de DDD, también llamadas Dominio y expresadas a traves de entidades, servicios de Dominio, value objects, interfaces).
+
+    * __Core__: contiene clases Base e Interfaces que serán necesarias para implementar patrones y features críticos. 
+
+### 3- INFRASTRUCTURE
+Aquí encontraremos implementaciones concretas para acceso a datos, ORMs, MicroORMS, Request HTTP, Manejo de archivos, etc.
+
+  * #### INFRASTRUCTURE
+
+    * __Core__: contiene algunas de las implementaciones de las Interfaces definidas en la capa de DOMAIN, asociadas a resolver problemas de Infraestructura.
+    * __EF__: contiene el DBContext y las clases necesarias para implementar Entity Framework, para el acceso a la base de datos.
+    * __Services__: contiene implementaciones concretas, por ejemplo, generar un Reporte en formato Excel. Las misas deberá configurarse en el AutofacModules para luego poder utilizarse mediante la inyección de IComponentContext.
+
+  * #### INFRASTRUCTURE.BOOSTRAP
+
+    * __AutofacModules__: contiene los módulos que nosotros definamos, los cuales se utilizaran para registrar los componentes que se podrán crear con reflection. De esta forma, podremos utilizar los servicios que generemos en la capa _Infrastructure_ en la capa _Application_. Se desaconseja el uso de dichos servicios en la capa _Domain_ debido a que la misma debe estar los mas aislada posible.
+    * __Extensions__: contiene las configuraciones necesarias para la iniciación de nuestra aplicación de forma segregada para mejorar su comprensión y descubrimiento, entre otras cosas.
 
 ## Como interaccionan los componentes
 
@@ -127,7 +173,52 @@ Cada llamada a nuestra Web API, será manejada por un middleware que generara un
 
 ## :large_blue_diamond: Arquitectura DDD
 
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-arquitectura-ddd)
+El objetivo principal de aplicar DDD o Domain Driven Design en inglés, es poder aislar el código que pertenece al dominio de los detalles técnicos de implementación y así centrarnos en la complejidad del negocio.
+
+### Principios centrales
+Podríamos decir que la orientación al dominio se centra en tres pilares básicos:
+  * Focalizar en el dominio central y la lógica de negocio.
+  * Convertir diseños complejos en modelos de dominio.
+  * Constante interacción y colaboración con los expertos de dominio, lo que ayudará a solventar dudas e interactuar más con el equipo de desarrollo.
+
+A su vez, cuando trabajamos con DDD debemos tener en cuenta:
+  * Separación de responsabilidades en capas, _(aislar el dominio)_.
+  * Modelar y definir el modelo.
+  * Gestionar el ciclo de vida de los objetos de Dominio.
+
+
+### Las diferentes capas son:
+
+* __Capa de dominio:__ 
+  Responsable de representar conceptos del negocio, información sobre la situación del negocio y reglas de negocios. El estado que refleja la situación empresarial está controlado y se usa aquí, aunque los detalles técnicos de su almacenaje se delegan a la infraestructura. Este nivel es el núcleo del software empresarial, donde se expresa el negocio, en. NET, _se codifica como una biblioteca de clases_, con las entidades de dominio que capturan datos y comportamiento (métodos con lógica).
+  <br/>A su vez, esta biblioteca solo tiene dependencias a las bibliotecas de .NET, pero no a otras bibliotecas personalizadas, como por ejemplo de datos o de persistencia. No debe depender de ningún otro nivel (las clases del modelo de dominio deben ser clases de objetos CLR o POCO).
+  <br/>
+
+* __Capa de aplicación:__ 
+  Define los trabajos que se supone que el software debe hacer y dirige los objetos de dominio para que resuelvan problemas. Las tareas que son responsabilidad de este nivel son significativas para la empresa o necesarias para la interacción con los niveles de aplicación de otros sistemas.
+  <br/>Este nivel debe mantenerse estrecho. No contiene reglas de negocios ni conocimientos, sino que solo coordina tareas y delega trabajo a colaboraciones de objetos de dominio en el siguiente nivel. No tiene ningún estado que refleje la situación empresarial, pero puede tener un estado que refleje el progreso de una tarea para el usuario o el programa.
+  <br/>Normalmente, el nivel de aplicación en microservicios .NET se codifica como un proyecto de ASP.NET Core Web API. El proyecto implementa la interacción del microservicio, el acceso a redes remotas y las API web externas utilizadas desde aplicaciones cliente o de interfaz de usuario. Incluye consultas si se utiliza un enfoque de CQRS, comandos aceptados por el microservicio e incluso comunicación guiada por eventos entre microservicios (eventos de integración).      
+  <br/>Básicamente, la lógica de la aplicación es el lugar en el que se implementan todos los casos de uso que dependen de un front-end determinado.
+  
+  <br/>En este ejemplo "_UserPermission_", esta capa se divide para mejorar el enfoque del diseño, dando lugar a los siguientes dos proyectos:
+  * 1- ENTRYPOINT :arrow_right: __API__
+  * 2- CORE  :arrow_right: __Application__
+	<br/>
+
+* __Capa de infraestructura:__
+  Es en donde reside la parte técnica de la aplicación, con sus implementaciones concretas y donde se añadirán las dependencias a software de terceros para cumplir con integraciones, base de datos, manejo de archivos, etc.
+
+  <br/>En este ejemplo "_UserPermission_", esta capa se divide para mejorar el enfoque del diseño, dando lugar a los siguientes dos proyectos:
+  * 3- INFRASTRUCTURE :arrow_right: __Infrastructure__
+  * 3- INFRASTRUCTURE :arrow_right: __Infrastructure.Bootstrap__
+	<br/>
+
+![ddd_1_es](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/readme-img/ddd_1_es.png?raw=true)
+![ddd_2_es](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/readme-img/ddd_2_es.png?raw=true)
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft DDD](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/ddd-oriented-microservice)
+> * [Introducción DDD](https://refactorizando.com/introduccion-domain-drive-design/)
 
 ## :large_blue_diamond: Docker
 
@@ -228,32 +319,221 @@ Si queremos visualizar la configuración, debemos ingresar a la siguientes clase
     * ServiceCollections :arrow_right: SwaggerServiceCollectionExtensions
 
 ### Referencias :triangular_flag_on_post:
-> * [Aprendiendo Microsoft - Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-6.0&tabs=visual-studio)
+> * [Aprendiendo Microsoft - Swashbuckle](https://learn.microsoft.com/es-es/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-7.0&tabs=visual-studio)
 > * [Blog API versioning and integrate Swagger](https://blog.christian-schou.dk/how-to-use-api-versioning-in-net-core-web-api/)
   
 ## :large_blue_diamond: MediatR + CQRS
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-mediatr--cqrs)
+
+### MediatR
+Es una biblioteca de código abierto, pequeña y simple, que implementa el patrón de mediador, para la canalización de mensajes (comandos) y enrutandolos, en memoria, a los controladores de comandos correctos.
+
+El uso del patrón de mediador ayuda a reducir el acoplamiento y aislar el procesamiento del comando solicitado, del resto del código.
+
+### CQRS
+CQRS en ingles significa (Command Query Responsibility Segregation), el cual es un patron que busca tener dos objetos separados, uno para operaciones de lectura y otro para operaciones de escritura, a diferencia de otros enfoques que buscan tener todo en uno solo.
+
+### Combinándolos
+En este ejemplo "_UserPermission_", combinamos el patron mediador con el patron CQRS, el resultado implica la creación de comandos para consultas y comandos para cambiar el estado del sistema.
+
+  * Consultas: Estas consultas devuelven un resultado sin cambiar el estado del sistema y no tienen efectos secundarios.
+    * __Application__ :arrow_right: UserCases :arrow_right: FindOne :arrow_right: Queries
+    <br/>  
+  * Comandos: Estos comandos cambian el estado de un sistema.
+    * __Application__ :arrow_right: UserCases :arrow_right: Create :arrow_right: Commands
+
+### Referencias :triangular_flag_on_post:
+> * [CQRS web-api command process pipeline with a mediator pattern MediatR](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/microservice-application-layer-implementation-web-api#implement-the-command-process-pipeline-with-a-mediator-pattern-mediatr)
+> * [Aprendiendo Microsoft CRQS Pattern in DDD](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns)
+
 
 ## :large_blue_diamond: Health Check
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-health-check)
+
+Una aplicación se encarga de exponer las comprobaciones de estado como puntos de conexión HTTP, donde normalmente, las comprobaciones de estado se usan con un servicio de supervisión externa o un orquestador de contenedores para comprobar el estado de una aplicación. 
+
+Antes de agregar comprobaciones de estado a una aplicación, debe decidir en qué sistema de supervisión se va a usar. El sistema de supervisión determina qué tipos de comprobaciones de estado se deben crear y cómo configurar sus puntos de conexión.
+
+Para ello utilizamos la biblioteca:
+  * Microsoft.AspNetCore.Diagnostics.HealthChecks
+
+Dicha configuración se puede encontrar en:
+  * __Infrastructure.Bootstrap__ :arrow_right: Extensions   
+    * ApplicationBuilder :arrow_right: HealthChecksApplicationBuilderExtensions    
+    y en:
+    * ServiceCollections :arrow_right: HealthChecksServiceCollectionExtensions
+    
+Y podemos ingresar al endpoint __"/health"__ para comprobar su funcionamiento.
+  * https://localhost:5001/health
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft Health Checks](https://learn.microsoft.com/es-es/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-7.0)
 
 ## :large_blue_diamond: Logs
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-logs)
+
+Para poder obtener información y registrar errores producidos en nuestra aplicación, utilizaremos la librería Serilog, la cual nos facilita la implementación de esta característica muy util para el diagnostico.
+
+### Utilización
+Definir en nuestra clase una variable para almacenar el logger:
+```csharp
+private readonly ILogger<MyClass> logger;
+```
+Inyectar en el constructor el logger:
+```csharp
+public MyClass(ILogger<MyClass> logger)
+{
+  this.logger = logger;
+}
+```
+Hacer uso del logger, ejemplos:
+```csharp
+this.logger.Log(LogLevel.Information, "Permission {0} already exists", permission.Id);
+...
+this.logger.LogInformation("Permission {0} already exists", permission.Id);
+...
+this.logger.LogError("API Error: {api}: \n{result}",
+  apiException.RequestMessage.RequestUri, 
+  apiException.Content);
+```
+
+### Configuración
+La configuración del Serilog se encuentra en la siguiente clase: 
+  * __API__ :arrow_right: Program.cs    
+
+Y en el archivo appsettings.[Environment].json:
+
+```bash
+  "Serilog": {
+    "MinimumLevel": {
+      "Default": "Information",
+      "Microsoft": "Information",
+      "Microsoft.Hosting.Lifetime": "Information",
+      "Override": {
+        "System": "Information",
+        "Microsoft": "Information"
+      }
+    },
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "theme": "Serilog.Sinks.SystemConsole.Themes.AnsiConsoleTheme::Code, Serilog.Sinks.Console",
+          "outputTemplate": "{Timestamp:u} [{Level:u3}] [{RequestId}] {Message:lj} <s:{SourceContext}>{NewLine}{Exception}"
+        }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName" ]
+  },
+```
+
+#### Nivel de prioridad
+
+* _Verbose_ :arrow_right: _Debug_ :arrow_right: _Information_ :arrow_right: _Warning_ :arrow_right: _Error_ :arrow_right: _Fatal_
+
+Ejemplo, si indicamos el nivel "Information", los Logs de nivel "Verbose" y "Debug" no se visualizaran.
+
+
+### Referencias :triangular_flag_on_post:
+> * [Serilog Web](https://serilog.net/)
+> * [Serilog Tutorial](https://stackify.com/serilog-tutorial-net-logging/)
 
 ## :large_blue_diamond: Unit Of Work
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-unit-of-work)
+
+Es un patron que tiene como propósito asegurarse de que se comparta un mismo contexto de base de datos, de modo que cuando se completan las tareas a realizar en la base de datos, se pueda llamar al SaveChanges, método en esa instancia del contexto y asegurarse de que todos los cambios relacionados se coordinarán. 
+
+Ejemplo:
+
+```csharp
+var permission = new Permission()
+{
+    EmployeeForename = cmd.EmployeeForename,
+    EmployeeSurname = cmd.EmployeeSurname,
+    PermissionTypeId = cmd.PermissionTypeId,
+    PermissionDate = DateTime.UtcNow
+};
+
+this.unitOfWork.Repository<Permission>().Add(permission);
+// ...
+// this.unitOfWork.Repository<....>().Add(...);
+// this.unitOfWork.Repository<....>().Remove(...);
+// this.unitOfWork.Repository<....>().Update(...);
+// ...
+await this.unitOfWork.Complete();
+```
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft Unit Of Work Pattern](https://learn.microsoft.com/es-es/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application#creating-the-unit-of-work-class)
+> * [Martin Fower Unit Of Work](https://martinfowler.com/eaaCatalog/unitOfWork.html)
 
 ## :large_blue_diamond: Query Specification Pattern
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-query-specification-pattern)
+
+Es un patron que busca cumplir con DDD para la consulta de datos de manera que dichas especificaciones se almacenen en la capa __Domain__, separando de manera efectiva la lógica que existe en las consultas de su implementación.
+
+Para ello se genero en la capa __Domain__ la clase base _BaseSpecification_ y la interface _ISpecification_. En la capa __Infrastructure__ existe la clase _SpecificationEvaluator_ que es utilizada por la clase _Repository_ para aplicar la especificación a utilizar.
+
+Ejemplo:
+La clase _PermissionGetSpecification_ que se encuentra en la carpeta
+  * __Domain__ :arrow_right: Permission :arrow_right: Queries
+
+```csharp
+public class PermissionGetSpecification : BaseSpecification<Models.Permission>
+{
+    public PermissionGetSpecification(Models.Permission permission)
+    {
+        base.AddInclude(x => x.PermissionType);
+
+        if (permission.Id != 0)
+        {
+            base.SetCriteria(x => x.Id == permission.Id);
+        }
+        else 
+        {
+            base.SetCriteria(x => x.PermissionTypeId == permission.PermissionTypeId
+                && x.EmployeeForename == permission.EmployeeForename
+                && x.EmployeeSurname == permission.EmployeeSurname
+            );
+        }
+    }
+}
+```
+Dicha especificación es utilizada en la clase _PermissionGetQuery_ que se encuentra en la carpeta
+  * __Application__ :arrow_right: UserCases :arrow_right: FindOne :arrow_right: Queries
+
+```csharp
+var spec = new PermissionGetSpecification(permission);
+var result = this.unitOfWork.Repository<Permission>().Find(spec).FirstOrDefault();
+return Task.FromResult(result);
+```
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft Query Specification Pattern in DDD](https://learn.microsoft.com/es-es/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-implementation-entity-framework-core#implement-the-query-specification-pattern)
+> * [Medium Specification Pattern Generic Repository](https://medium.com/@rudyzio92/net-core-using-the-specification-pattern-alongside-a-generic-repository-318cd4eea4aa)
 
 ## :large_blue_diamond: Multiple Environments
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-multiple-environments)
+Crear el json con el siguiente nombre:
+  * appsettings.__environment__.json
+
+Ejemplos:
+
+![img_hierarchy_1](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/readme-img/multiple_environments_1.png?raw=true)
+
+![img_hierarchy_2](https://github.com/SpaikSaucus/net7-docker-mssql-kafka-elastic-example/blob/main/readme-img/multiple_environments_2.png?raw=true)	
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft Environments](https://learn.microsoft.com/es-es/aspnet/core/fundamentals/environments?view=aspnetcore-7.0)
 
 ## :large_blue_diamond: Unit Test
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-unit-test)
+xUnit: Estos test están escritos mediante XUnit y utilizando las siguientes bibliotecas FluentAssertions y FakeItEasy.
+
+### Referencias :triangular_flag_on_post:
+> * [Fluent Assertions Web](https://fluentassertions.com/)
+> * [Fake It Easy Web](https://fakeiteasy.readthedocs.io/en/stable/)
+> * [Blog NUnit vs xUnit vs MSTest](https://www.lambdatest.com/blog/nunit-vs-xunit-vs-mstest/)
+> * [Aprendiendo Microsoft Unit Testing (mejores practicas)](https://learn.microsoft.com/es-es/dotnet/core/testing/unit-testing-best-practices)
 
 ## :large_blue_diamond: Integration Test
-El siguiente link nos conducirá al readme de otro de mis proyecto, donde podrá encontrar la información asociada a este punto. Click [aquí](https://github.com/SpaikSaucus/net6-ddd-advanced-example/blob/main/README.es.md#large_blue_diamond-integration-test)
+Microsoft.AspNetCore.TestHost - Estos Test nos ayudan a poder realizar una prueba de integración de nuestra APP. El objetivo del mismo es poder levantar el middleware de Net Core con todas las configuraciones.
+
+### Referencias :triangular_flag_on_post:
+> * [Aprendiendo Microsoft Integration Tests](https://learn.microsoft.com/es-es/aspnet/core/test/integration-tests?view=aspnetcore-7.0)
 
 ## Lectura recomendada:
 > * [Kafka Introducción](https://kafka.apache.org/documentation/#gettingStarted)
